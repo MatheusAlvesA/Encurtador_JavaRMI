@@ -113,6 +113,25 @@ public class Banco {
 	}
 	
 	/*
+	 * Esta função Verifica a existencia de uma chave no banco
+	 * 
+	 * Recebe como parâmetro a chave (String)
+	 * Retorna se a chave está presente
+	 * 
+	 * Complexidade O(1)
+	 */
+	public boolean temChave(String chave) {
+		if(chave == null) // Não faz sentido a chave ser nula
+			return false;
+
+		try {
+			this.get(chave);
+		} catch (BancoException e) {return false;}
+		
+		return true;
+	}
+	
+	/*
 	 * Esta função remove o valor associado a chave passada no banco
 	 * 
 	 * Recebe como parâmetro a chave (String)
