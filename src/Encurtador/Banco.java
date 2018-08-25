@@ -7,8 +7,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Set;
 
 import org.json.JSONObject;
 import org.json.JSONException;
@@ -98,17 +98,13 @@ public class Banco {
 		// Recebendo um terador com todas as chaves que existem no banco
 		Iterator<String> iteradorChaves = this.dados.keys();
 		
-		// Inicializando uma lista de strings para guardar as chaves
-		ArrayList<String> listaChaves = new ArrayList<String>();
-		
 		//Iterando e convertendo o iterador em uma lista
-		while(iteradorChaves.hasNext()) { listaChaves.add(iteradorChaves.next());}
-		
-		// Percorrendo a lista de chaves em busca do valor
-		for(int loop = 0; loop < listaChaves.size(); loop++)
-			if(this.dados.get(listaChaves.get(loop)) == valor)
-				return listaChaves.get(loop);
-		
+		while(iteradorChaves.hasNext()) {
+			String chave = iteradorChaves.next();
+			if(valor.equals(this.dados.get(chave)))
+				return chave;
+		}
+
 		return null;
 	}
 	
@@ -129,6 +125,14 @@ public class Banco {
 		} catch (BancoException e) {return false;}
 		
 		return true;
+	}
+	
+	/*
+	 * Esta função retorna o número ed chaves/valores armazenados
+	 */
+	public int size() {
+		Set<String> set = dados.keySet();
+		return set.size();
 	}
 	
 	/*

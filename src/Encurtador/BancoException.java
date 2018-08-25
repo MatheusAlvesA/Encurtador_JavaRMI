@@ -26,5 +26,5 @@ public class BancoException extends Exception {
 	}
 	
 	public Exception getCausa() {return this.causadora;}
-	public String getMensagem() {return this.mensagem;}
+	public String getMessage() {return this.mensagem;}
 }
