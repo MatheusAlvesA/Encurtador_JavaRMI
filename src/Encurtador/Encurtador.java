@@ -93,13 +93,6 @@ public class Encurtador {
 		return cod;
 	}
 	
-	private boolean testarURL(String URL) {
-        Pattern pattern = Pattern.compile(this.regexURL);
-        Matcher matcher = pattern.matcher(URL);
-        
-        return matcher.matches();
-	}
-	
 	/*
 	 * Esta é uma função interna que retorna um caractere alphanumerico aleatório
 	 * */
@@ -112,6 +105,16 @@ public class Encurtador {
 		else gerado += 61;				   // É um caractere menusculo
 		
 		return (char) gerado;
+	}
+	
+	/*
+	 * Esta função aplica uma expreção regular para verificar se esta é uma URL válida
+	 * */
+	private boolean testarURL(String URL) {
+        Pattern pattern = Pattern.compile(this.regexURL);
+        Matcher matcher = pattern.matcher(URL);
+        
+        return matcher.matches();
 	}
 	
 	/*

@@ -51,6 +51,7 @@ public class Cliente {
 			System.out.println("https://www.instagram.com -> "+servidor.encurtar("https://www.instagram.com"));
 			System.out.println("https://www.twitch.tv/ -> "+servidor.encurtar("https://www.twitch.tv/"));
 			System.out.println("www.twitch.tv -> "+servidor.encurtar("www.twitch.tv"));
+			System.out.println("orkut.com.br -> "+servidor.encurtar("orkut.com.br"));
 			Cliente.total(servidor);
 			
 		} catch (RemoteException e) {
@@ -113,7 +114,7 @@ public class Cliente {
 				System.out.println("A URL informada não foi encontrada no banco");
 
 		} catch (RemoteException e) {
-			System.out.println("Não foi possível desencurtar ("+e.getCause().getMessage()+")");
+			System.out.println("Não foi possível remover ("+e.getCause().getMessage()+")");
 			System.out.println("Verifique o log de erros do servidor");
 		}
 		catch (InputMismatchException e) {
@@ -141,7 +142,7 @@ public class Cliente {
 			
 			int opcao = 1;
 			while(opcao != 0) {
-				System.out.println("\n\n! Escolha o que fazer a seguir !\n");
+				System.out.println("\n! Escolha o que fazer a seguir !\n");
 
 				System.out.println("1 - Encurtar URL");
 				System.out.println("2 - (Des)Encurtar URL");

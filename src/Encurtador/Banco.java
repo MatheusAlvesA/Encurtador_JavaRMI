@@ -26,7 +26,7 @@ public class Banco {
 	 *	e realizar a leitura inicial do banco
 	 *
 	 *	Dois tipos de exceções podem ocorrer:
-	 *		O arquivo não com tem um banco de dados váldo, po estar corrompido ou
+	 *		O arquivo não comtém um banco de dados váldo, por estar corrompido ou
 	 *		O arquivo não pôde ser lido devido a um problema para abri-lo
 	 *	Em ambos os casos BancoException é lançado contendo uma mensagem descritiva e a exceção originária
 	 */
@@ -94,7 +94,7 @@ public class Banco {
 	 * 
 	 * Complexidade O(n). Com n = número de elementos no banco
 	 */
-	public String buscarValor(String valor) throws BancoException {
+	public String buscarValor(String valor) {
 		// Recebendo um terador com todas as chaves que existem no banco
 		Iterator<String> iteradorChaves = this.dados.keys();
 		
@@ -128,7 +128,7 @@ public class Banco {
 	}
 	
 	/*
-	 * Esta função retorna o número ed chaves/valores armazenados
+	 * Esta função retorna o número de entradas armazenadas
 	 */
 	public int size() {
 		Set<String> set = dados.keySet();
@@ -136,7 +136,7 @@ public class Banco {
 	}
 	
 	/*
-	 * Esta função remove o valor associado a chave passada no banco
+	 * Esta função remove entrada associada a chave passada no banco
 	 * 
 	 * Recebe como parâmetro a chave (String)
 	 * 
@@ -153,9 +153,9 @@ public class Banco {
 	}
 	
 	/*
-	 * Essa função é responsável por ler os dados do arquivo "fileName" e guardalos em "dados"
+	 * Essa função é responsável por ler os dados do arquivo "fileName" e guarda-los em "dados"
 	 * */
-	private JSONObject lerBanco() throws JSONException,  IOException {
+	private JSONObject lerBanco() throws JSONException, IOException {
 		// Criando uma referencia para o arquivo
 		File fileBanco = new File(this.fileName);
 

@@ -10,15 +10,17 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class Server extends UnicastRemoteObject implements ServerFachada {
 
+	private static final long serialVersionUID = 1L;
+	
 	private final boolean avisarErrosConsole = true; // Se deve ou não exibir os erros no console
-	public final String ServerURL = "short.com.br"; // A URL onde o servidor está hospedado
+	private String ServerURL; // A URL onde o servidor está hospedado
 	private Encurtador encurtador;
 	
-	protected Server() throws RemoteException {
+	protected Server(String endereco) throws RemoteException {
 		super();
 		
 		try {
-			
+			this.ServerURL = endereco;
 			this.encurtador = new Encurtador(this.ServerURL);
 			
 		} catch (BancoException e) {
@@ -26,8 +28,6 @@ public class Server extends UnicastRemoteObject implements ServerFachada {
 			throw new RemoteException("Falha ao instanciar o encurtador");
 		}
 	}
-
-	private static final long serialVersionUID = 1L;
 
 	@Override
 	public String encurtar(String URLlonga) throws RemoteException {
@@ -102,16 +102,15 @@ public class Server extends UnicastRemoteObject implements ServerFachada {
 	public static void main(String[] args) {
 		try {
 			
-			Server servidor = new Server();
+			Server servidor = new Server("short.com.br");
 			
 			System.out.println("Iniciando servidor encurtador de URLs");
 			LocateRegistry.createRegistry(1099);
 			Naming.rebind("rmi://localhost/encurtador", servidor);
 			System.out.println("Servidor Online!");
-			
+
 		}
-		catch (RemoteException e) {e.printStackTrace();}
-		catch (MalformedURLException e) {e.printStackTrace();}
+		catch (RemoteException | MalformedURLException e) {e.printStackTrace();System.exit(0);}
 	}
 
 }
