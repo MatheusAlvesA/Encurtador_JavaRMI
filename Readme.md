@@ -151,15 +151,25 @@ public static void popularBanco(ServerFachada servidor);
 **Exemplo de saída da função**
 
 >facebook.com.br -> short.com.br/S7jkQ
+
 >twitter.com.br -> short.com.br/fGYX6
+
 >sigaa.ufrn.br -> short.com.br/weiIw
+
 >ru.ufrn.br -> short.com.br/jK7Qi
+
 >steampowered.com -> short.com.br/YgWjw
+
 >stackoverflow.com -> short.com.br/prOmp
+
 >https://www.instagram.com -> short.com.br/ssDFg
+
 >https://www.twitch.tv/ -> short.com.br/dre8G
+
 >www.twitch.tv -> short.com.br/5qjc5
+
 >orkut.com.br -> short.com.br/F0fhT
+
 >No total foram encurtadas `10` URLs
 
 As demais funções desta classe solicitam ao usuário as URLs para encurtar e desencurtar e executam as demandas via servidor. Toda e qualquer exceção é capturada na própria função e é informada ao usuário. Mais detalhes a respeito das falhas poderão ser obtidos no log de erros do Servidor.
