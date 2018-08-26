@@ -19,4 +19,6 @@ public interface ServerFachada extends Remote {
 	
 	// Retorna quantas URL encurtadas estão armazenadas no banco
 	public int totalEncurtadas() throws RemoteException;
+	
+	public void desligar() throws RemoteException;;
 }

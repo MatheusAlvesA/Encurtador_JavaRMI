@@ -48,7 +48,7 @@ public class Server extends UnicastRemoteObject implements ServerFachada {
 			return this.encurtador.desEncurtar(URLcurta);
 		} catch (BancoException e) {
 			this.logarErro(e);
-			throw new RemoteException("Falha ao encurtar a URL");
+			throw new RemoteException("Falha ao desencurtar a URL");
 		}
 	}
 
@@ -58,7 +58,7 @@ public class Server extends UnicastRemoteObject implements ServerFachada {
 			return this.encurtador.remover(URLcurta);
 		} catch (BancoException e) {
 			this.logarErro(e);
-			throw new RemoteException("Falha ao encurtar a URL");
+			throw new RemoteException("Falha ao remover a URL");
 		}
 	}
 
@@ -90,7 +90,13 @@ public class Server extends UnicastRemoteObject implements ServerFachada {
 			String causa = e.getCause().getMessage();
 			if(this.avisarErrosConsole) System.err.println("Não foi posível criar o arquivo de log: "+nomeArquivoLog);
 			if(this.avisarErrosConsole) System.err.println(causa);
-		}
+		}		
+	}
+	
+	// Esta função desliga o servidor via comando vindo do cliente
+	public void desligar() {
+		System.out.println("> Servidor encerrado via cliente <");
+		System.exit(0);
 	}
 	
 	public static void main(String[] args) {
@@ -103,9 +109,6 @@ public class Server extends UnicastRemoteObject implements ServerFachada {
 			Naming.rebind("rmi://localhost/encurtador", servidor);
 			System.out.println("Servidor Online!");
 			
-			//Debug testes
-			System.out.println(servidor.encurtar( "http://www.facebook.com.br" ));
-			System.out.println(servidor.totalEncurtadas());
 		}
 		catch (RemoteException e) {e.printStackTrace();}
 		catch (MalformedURLException e) {e.printStackTrace();}

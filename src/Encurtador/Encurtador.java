@@ -85,7 +85,7 @@ public class Encurtador {
 	/*
 	 * Esta função retorna uma string de 'codSize' caracteres alphanumericos aleatórios
 	 * */
-	public String getCodigo() {
+	private String getCodigo() {
 		String cod = ""; // Inicializando
 		for(int x = 0; x < this.codSize; x++) // Um loop de codSize vezes
 			cod += this.getAlphanumerico(); // Acrescentando um charactere a cada iteração
@@ -107,9 +107,9 @@ public class Encurtador {
 		Random gerador = new Random();
 		int gerado = gerador.nextInt(62);
 		
-		if(gerado < 10) gerado += 48; 		// É um número
+		if(gerado < 10) gerado += 48; 	   // É um número
 		else if(gerado < 36) gerado += 55; // É um caractere maiusculo
-		else gerado += 61;					// É um caractere menusculo
+		else gerado += 61;				   // É um caractere menusculo
 		
 		return (char) gerado;
 	}
