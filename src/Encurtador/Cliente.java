@@ -17,7 +17,7 @@ public class Cliente {
 	 * Encurtar tem a finalidade de receber do usuário via console qual a url a ser encurtada
 	 * E exibir, também no console a versão curta dessa URL 
 	 * */
-	public static void encurtar(ServerFachada servidor, Scanner leitor) {
+	public static Boolean encurtar(ServerFachada servidor, Scanner leitor) {
 		
 		System.out.println("Insira a URL a ser encurtada: ");
 		try {
@@ -31,14 +31,17 @@ public class Cliente {
 		}
 		catch (InputMismatchException e) {
 			System.out.println("A string inserida não é válida");
+			return false;
 		}
+		
+		return true;
 	}
 
 	/*
 	 * Esta função insere automaticamente 10 urls para serem encurtadas
 	 * Útil para debug
 	 * */
-	public static void popularBanco(ServerFachada servidor) {
+	public static Boolean popularBanco(ServerFachada servidor) {
 		
 		try {
 			
@@ -57,10 +60,13 @@ public class Cliente {
 		} catch (RemoteException e) {
 			System.out.println("Não foi possível encurtar ("+e.getCause().getMessage()+")");
 			System.out.println("Verifique o log de erros do servidor");
+			return false;
 		}
 		catch (InputMismatchException e) {
 			System.out.println("A string inserida não é válida");
+			return true;
 		}
+		return true;
 	}
 	
 	/*
@@ -68,7 +74,7 @@ public class Cliente {
 	 * 
 	 * Solicita ao usuário a URL encurtada previamente e exibe no console a URL original
 	 * */
-	public static void desEncurtar(ServerFachada servidor, Scanner leitor) {
+	public static Boolean desEncurtar(ServerFachada servidor, Scanner leitor) {
 		
 		System.out.println("Insira a URL encurtada: ");
 		try {
@@ -82,28 +88,33 @@ public class Cliente {
 		} catch (RemoteException e) {
 			System.out.println("Não foi possível desencurtar ("+e.getCause().getMessage()+")");
 			System.out.println("Verifique o log de erros do servidor");
+			return false;
 		}
 		catch (InputMismatchException e) {
 			System.out.println("A string inserida não é válida");
+			return true;
 		}
+		return true;
 	}
 
 	/*
 	 * Esta é uma função simples que exibe o número de URLs encurtadas até agora
 	 * */
-	public static void total(ServerFachada servidor) {
+	public static Boolean total(ServerFachada servidor) {
 		try {
 			System.out.println("No total foram encurtadas "+servidor.totalEncurtadas()+" URLs");
 		} catch (RemoteException e) {
 			System.out.println("Falha ao obter a informação ("+e.getMessage()+")");
 			System.out.println("Verifique o log de erros do servidor");
+			return false;
 		}
+		return true;
 	}
 
 	/*
 	 * Dada uma URL previamente encurtada essa função vai solicitar ao servidor que a apague do banco
 	 * */
-	public static void remover(ServerFachada servidor, Scanner leitor) {
+	public static Boolean remover(ServerFachada servidor, Scanner leitor) {
 		
 		System.out.println("Insira a URL encurtada: ");
 		try {
@@ -116,10 +127,13 @@ public class Cliente {
 		} catch (RemoteException e) {
 			System.out.println("Não foi possível remover ("+e.getCause().getMessage()+")");
 			System.out.println("Verifique o log de erros do servidor");
+			return false;
 		}
 		catch (InputMismatchException e) {
 			System.out.println("A string inserida não é válida");
+			return true;
 		}
+		return true;
 	}
 	
 	/*
@@ -161,23 +175,25 @@ public class Cliente {
 					leitor.nextLine();
 					opcao = 10; // Opção inválida de propósito
 				}
+				
+				boolean serverOnline = false;
 
 				switch (opcao) {
 					case 0: break; // Sair do loop
 					case 1:
-						Cliente.encurtar(servidor, leitor);
+						serverOnline = Cliente.encurtar(servidor, leitor);
 						break;
 					case 2:
-						Cliente.desEncurtar(servidor, leitor);
+						serverOnline = Cliente.desEncurtar(servidor, leitor);
 						break;
 					case 3:
-						Cliente.total(servidor);
+						serverOnline = Cliente.total(servidor);
 						break;
 					case 4:
-						Cliente.remover(servidor, leitor);
+						serverOnline = Cliente.remover(servidor, leitor);
 						break;
 					case 5:
-						Cliente.popularBanco(servidor);
+						serverOnline = Cliente.popularBanco(servidor);
 						break;
 						
 					case 9:
@@ -190,6 +206,12 @@ public class Cliente {
 						break;
 					default:
 						System.out.println("Opção inválida");
+				}
+				while(!serverOnline) {
+					try {
+						servidor = (ServerFachada) Naming.lookup("rmi://localhost/encurtador");
+						serverOnline = true;
+					} catch (MalformedURLException | RemoteException | NotBoundException e) {}
 				}
 			}
 			
