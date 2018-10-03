@@ -25,13 +25,14 @@ public class Cliente {
 			String encurtada = servidor.encurtar(leitor.next());
 			System.out.println("Sua URL encurtada é: "+encurtada);
 			
-		} catch (RemoteException e) {
-			System.out.println("Não foi possível encurtar ("+e.getCause().getMessage()+")");
-			System.out.println("Verifique o log de erros do servidor");
 		}
 		catch (InputMismatchException e) {
 			System.out.println("A string inserida não é válida");
 			return false;
+		}
+		catch (Exception e) {
+			System.out.println("Não foi possível encurtar ("+e.getCause().getMessage()+")");
+			System.out.println("Verifique o log de erros do servidor");
 		}
 		
 		return true;
@@ -57,14 +58,15 @@ public class Cliente {
 			System.out.println("orkut.com.br -> "+servidor.encurtar("orkut.com.br"));
 			Cliente.total(servidor);
 			
-		} catch (RemoteException e) {
-			System.out.println("Não foi possível encurtar ("+e.getCause().getMessage()+")");
-			System.out.println("Verifique o log de erros do servidor");
-			return false;
 		}
 		catch (InputMismatchException e) {
 			System.out.println("A string inserida não é válida");
 			return true;
+		}
+		catch (Exception e) {
+			System.out.println("Não foi possível encurtar ("+e.getCause().getMessage()+")");
+			System.out.println("Verifique o log de erros do servidor");
+			return false;
 		}
 		return true;
 	}
@@ -85,14 +87,15 @@ public class Cliente {
 			else
 				System.out.println("A URL informada não foi encontrada no banco");
 			
-		} catch (RemoteException e) {
-			System.out.println("Não foi possível desencurtar ("+e.getCause().getMessage()+")");
-			System.out.println("Verifique o log de erros do servidor");
-			return false;
 		}
 		catch (InputMismatchException e) {
 			System.out.println("A string inserida não é válida");
 			return true;
+		}
+		catch (Exception e) {
+			System.out.println("Não foi possível desencurtar ("+e.getCause().getMessage()+")");
+			System.out.println("Verifique o log de erros do servidor");
+			return false;
 		}
 		return true;
 	}
@@ -103,7 +106,7 @@ public class Cliente {
 	public static Boolean total(ServerFachada servidor) {
 		try {
 			System.out.println("No total foram encurtadas "+servidor.totalEncurtadas()+" URLs");
-		} catch (RemoteException e) {
+		} catch (Exception e) {
 			System.out.println("Falha ao obter a informação ("+e.getMessage()+")");
 			System.out.println("Verifique o log de erros do servidor");
 			return false;
@@ -124,14 +127,15 @@ public class Cliente {
 			else
 				System.out.println("A URL informada não foi encontrada no banco");
 
-		} catch (RemoteException e) {
-			System.out.println("Não foi possível remover ("+e.getCause().getMessage()+")");
-			System.out.println("Verifique o log de erros do servidor");
-			return false;
 		}
 		catch (InputMismatchException e) {
 			System.out.println("A string inserida não é válida");
 			return true;
+		}
+		catch (Exception e) {
+			System.out.println("Não foi possível remover ("+e.getCause().getMessage()+")");
+			System.out.println("Verifique o log de erros do servidor");
+			return false;
 		}
 		return true;
 	}

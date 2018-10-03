@@ -3,20 +3,14 @@ package Encurtador;
 import java.io.File;
 import java.io.FileWriter;
 import java.net.MalformedURLException;
-import java.rmi.Naming;
-import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.server.UnicastRemoteObject;
 
-public class Server extends UnicastRemoteObject implements ServerFachada {
-
-	private static final long serialVersionUID = 1L;
+public class Server implements ServerFachada {
 	
 	private final boolean avisarErrosConsole = true; // Se deve ou não exibir os erros no console
 	private String ServerURL; // A URL onde o servidor está hospedado
 	private Encurtador encurtador;
 	
-	protected Server(String endereco) throws RemoteException {
+	protected Server(String endereco) throws Exception {
 		super();
 		
 		try {
@@ -25,45 +19,45 @@ public class Server extends UnicastRemoteObject implements ServerFachada {
 			
 		} catch (BancoException e) {
 			this.logarErro(e);
-			throw new RemoteException("Falha ao instanciar o encurtador");
+			throw new Exception("Falha ao instanciar o encurtador");
 		}
 	}
 
 	@Override
-	public String encurtar(String URLlonga) throws RemoteException {
+	public String encurtar(String URLlonga) throws Exception {
 		try {
 			return this.encurtador.encurtar(URLlonga);
 		} catch (BancoException e) {
 			this.logarErro(e);
-			throw new RemoteException("Falha ao encurtar a URL");
+			throw new Exception("Falha ao encurtar a URL");
 		} catch (MalformedURLException e) {
 			this.logarErro(e);
-			throw new RemoteException("URL mal formada");
+			throw new Exception("URL mal formada");
 		}
 	}
 
 	@Override
-	public String desEncurtar(String URLcurta) throws RemoteException {
+	public String desEncurtar(String URLcurta) throws Exception {
 		try {
 			return this.encurtador.desEncurtar(URLcurta);
 		} catch (BancoException e) {
 			this.logarErro(e);
-			throw new RemoteException("Falha ao desencurtar a URL");
+			throw new Exception("Falha ao desencurtar a URL");
 		}
 	}
 
 	@Override
-	public boolean remover(String URLcurta) throws RemoteException {
+	public boolean remover(String URLcurta) throws Exception {
 		try {
 			return this.encurtador.remover(URLcurta);
 		} catch (BancoException e) {
 			this.logarErro(e);
-			throw new RemoteException("Falha ao remover a URL");
+			throw new Exception("Falha ao remover a URL");
 		}
 	}
 
 	@Override
-	public int totalEncurtadas() throws RemoteException {
+	public int totalEncurtadas() throws Exception {
 		return this.encurtador.totalEncurtado();
 	}
 
@@ -105,12 +99,13 @@ public class Server extends UnicastRemoteObject implements ServerFachada {
 			Server servidor = new Server("short.com.br");
 			
 			System.out.println("Iniciando servidor encurtador de URLs");
-			LocateRegistry.createRegistry(1099);
-			Naming.rebind("rmi://localhost/encurtador", servidor);
+			/*
+			 * TODO
+			 * */
 			System.out.println("Servidor Online!");
 
 		}
-		catch (RemoteException | MalformedURLException e) {e.printStackTrace();System.exit(0);}
+		catch (Exception e) {e.printStackTrace();System.exit(0);}
 	}
 
 }
