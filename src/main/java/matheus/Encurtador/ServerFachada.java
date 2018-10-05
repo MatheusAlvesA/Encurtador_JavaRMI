@@ -8,17 +8,17 @@ import java.rmi.Remote;
 public interface ServerFachada extends Remote {
 	
 	// Esta função retorna a URL passada por par�metro encurtada
-	public String encurtar(String URLlonga) throws Exception;
+	public String encurtar(String URLlonga) throws ServerException;
 	
 	// Esta função (DES)encurta a URL encurtada passada por par�metro
-	public String desEncurtar(String URLcurta) throws Exception;
+	public String desEncurtar(String URLcurta) throws ServerException;
 	
 	// Dada uma URL previamente encurtada, remove a URL
-	public boolean remover(String URLcurta) throws Exception;
+	public boolean remover(String URLcurta) throws ServerException;
 	
 	// Retorna quantas URL encurtadas estão armazenadas no banco
-	public int totalEncurtadas() throws Exception;
+	public int totalEncurtadas() throws ServerException;
 	
 	// Encerra o servidor
-	public void desligar() throws Exception;;
+	public void desligar() throws ServerException;;
 }

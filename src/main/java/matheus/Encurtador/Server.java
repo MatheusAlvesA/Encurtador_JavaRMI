@@ -12,9 +12,8 @@ public class Server implements ServerFachada {
 	private Encurtador encurtador;
 	
 	public Server(String endereco) throws ServerException {
-		super();
-		
 		try {
+			
 			this.ServerURL = endereco;
 			this.encurtador = new Encurtador(this.ServerURL);
 			
@@ -39,8 +38,14 @@ public class Server implements ServerFachada {
 
 	@Override
 	public String desEncurtar(String URLcurta) throws ServerException {
+		if(URLcurta == null || URLcurta.equals(""))
+			throw new ServerException("A URL não pode estar vazia");
+
 		try {
-			return this.encurtador.desEncurtar(URLcurta);
+			String longa =  this.encurtador.desEncurtar(URLcurta);
+			if(longa == null)
+				throw new ServerException("A URL encurtada não foi encontrada, verifique a URL informada");
+			return longa;
 		} catch (BancoException e) {
 			this.logarErro(e);
 			throw new ServerException("Falha ao desencurtar a URL");
@@ -82,31 +87,18 @@ public class Server implements ServerFachada {
 			f.write(gravar);
 			if(this.avisarErrosConsole) System.err.println("Arquivo de log criado: "+nomeArquivoLog);
 		} catch(Exception e) {
-			String causa = e.getCause().getMessage();
+			String causa = "Causa desconhecida";
+			if(e.getCause() != null)
+				causa = e.getCause().getMessage();
 			if(this.avisarErrosConsole) System.err.println("N�o foi pos�vel criar o arquivo de log: "+nomeArquivoLog);
 			if(this.avisarErrosConsole) System.err.println(causa);
 		}		
 	}
 	
-	// Esta fun��o desliga o servidor via comando vindo do cliente
+	// Esta função desliga o servidor via comando vindo do cliente
 	public void desligar() {
 		System.out.println("> Servidor encerrado via cliente <");
 		System.exit(0);
-	}
-	
-	public static void main(String[] args) {
-		try {
-			
-			Server servidor = new Server("short.com.br");
-			
-			System.out.println("Iniciando servidor encurtador de URLs");
-			/*
-			 * TODO
-			 * */
-			System.out.println("Servidor Online!");
-
-		}
-		catch (ServerException e) {e.printStackTrace();System.exit(0);}
 	}
 
 }

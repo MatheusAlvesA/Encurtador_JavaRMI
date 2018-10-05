@@ -20,21 +20,21 @@ public class Encurtador {
 	}
 	
 	/*
-	 * Dado uma URL retorna a sua vers�o encurtada
+	 * Dado uma URL retorna a sua versão encurtada
 	 * 
-	 * Lan�a exce��o caso o banco tenha algum problema
+	 * Lança exceção caso o banco tenha algum problema
 	 * */
 	public String encurtar(String URLoriginal) throws BancoException, MalformedURLException {
 		//Testando se a URL est� bem formada
 		if(URLoriginal == null || !this.testarURL(URLoriginal))
-			throw new MalformedURLException("A URL n�o � v�lida("+URLoriginal+")");
+			throw new MalformedURLException("A URL não é válida("+URLoriginal+")");
 		
 		String existente = banco.buscarValor(URLoriginal);
-		// Se j� existe retorna a URL encurtada j� existente
+		// Se já existe retorna a URL encurtada já existente
 		if(existente != null) return this.prefixo+'/'+existente;
 		
 		String chaveUnica = this.getCodigo();
-		// Continue procurando uma chave at� que ela n�o exista no banco
+		// Continue procurando uma chave até que ela não exista no banco
 		while(banco.temChave(chaveUnica)) chaveUnica = this.getCodigo();
 		
 		banco.put(chaveUnica, URLoriginal);// Inserindo no banco
@@ -45,22 +45,22 @@ public class Encurtador {
 	/*
 	 * Dado uma URL previamente encurtada essa fun��o "desencurta" ela
 	 * 
-	 * Lan�a exce��o caso o banco tenha algum problema
+	 * Lança exceção caso o banco tenha algum problema
 	 * */
 	public String desEncurtar(String URLEncurtada) throws BancoException {
 		// Extraindo o codigo
 		String codigo = this.extrairCodigo(URLEncurtada);
-		// A chave n�o est� no banco
+		// A chave não está no banco
 		if(!banco.temChave(codigo)) return null;
 				
 		return banco.get(codigo);
 	}
 
 	/*
-	 * Esta fun��o remove uma URL encurtada do sistema
-	 * O unico par�metro de entrada � a URL encurtada
+	 * Esta função remove uma URL encurtada do sistema
+	 * O unico parâmetro de entrada é a URL encurtada
 	 * 
-	 * Retorna se a remo��o foi um sucesso ou false caso contr�rio
+	 * Retorna se a remoção foi um sucesso ou false caso contrário
 	 */
 	public boolean remover(String URLEncurtada) throws BancoException {
 		// Extraindo o codigo
@@ -76,33 +76,33 @@ public class Encurtador {
 	}
 	
 	/*
-	 * Esta fun��o retorna o n�mero de URLs encurtadas
+	 * Esta função retorna o n�mero de URLs encurtadas
 	 */
 	public int totalEncurtado() {
 		return this.banco.size();
 	}
 	
 	/*
-	 * Esta fun��o retorna uma string de 'codSize' caracteres alphanumericos aleat�rios
+	 * Esta função retorna uma string de 'codSize' caracteres alphanumericos aleatórios
 	 * */
 	private String getCodigo() {
 		String cod = ""; // Inicializando
 		for(int x = 0; x < this.codSize; x++) // Um loop de codSize vezes
-			cod += this.getAlphanumerico(); // Acrescentando um charactere a cada itera��o
+			cod += this.getAlphanumerico(); // Acrescentando um charactere a cada iteração
 
 		return cod;
 	}
 	
 	/*
-	 * Esta � uma fun��o interna que retorna um caractere alphanumerico aleat�rio
+	 * Esta é uma função interna que retorna um caractere alphanumerico aleatório
 	 * */
 	private char getAlphanumerico() {
 		Random gerador = new Random();
 		int gerado = gerador.nextInt(62);
 		
-		if(gerado < 10) gerado += 48; 	   // � um n�mero
-		else if(gerado < 36) gerado += 55; // � um caractere maiusculo
-		else gerado += 61;				   // � um caractere menusculo
+		if(gerado < 10) gerado += 48; 	   // é um número
+		else if(gerado < 36) gerado += 55; // é um caractere maiusculo
+		else gerado += 61;				   // é um caractere menusculo
 		
 		return (char) gerado;
 	}
@@ -118,7 +118,7 @@ public class Encurtador {
 	}
 	
 	/*
-	 * Dada uma URL encurtada pelo sistema essa fun��o retorna seu c�digo
+	 * Dada uma URL encurtada pelo sistema essa função retorna seu código
 	 * Ex: https://teste.com/hGt4s -> hGt4s
 	 * */
 	private String extrairCodigo(String URLEncurtada) {

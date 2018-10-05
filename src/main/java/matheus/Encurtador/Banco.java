@@ -37,11 +37,11 @@ public class Banco {
 			
 		}
 		catch (JSONException e) {throw new BancoException(e, "Falha ao ler o banco, o arquivo deve estar corrompido");}
-		catch (IOException e) {throw new BancoException(e, "Falha ao ler o arquivo, verifique as permiss�es de acesso");}
+		catch (IOException e) {throw new BancoException(e, "Falha ao ler o arquivo, verifique as permissões de acesso");}
 	}
 	
 	/*
-	 * Esta fun��o insere dados no banco
+	 * Esta função insere dados no banco
 	 * 
 	 * Recebe como par�metro a chave (String)
 	 * Retorna o valor (string) associado
@@ -49,8 +49,8 @@ public class Banco {
 	 * Complexidade O(1)
 	 */
 	public String get(String chave) throws BancoException {
-		if(chave == null) // N�o faz sentido a chave ser nula
-			throw new BancoException("A chave n�o pode ser nula");
+		if(chave == null) // Não faz sentido a chave ser nula
+			throw new BancoException("A chave não pode ser nula");
 		
 		String valor = "";
 		try {
@@ -58,9 +58,9 @@ public class Banco {
 			valor = (String) this.dados.get(chave); // obtendo valor e transformando em string
 			
 		} catch (JSONException e) {
-			throw new BancoException(e, "A chave n�o foi encontrada no banco");
+			throw new BancoException(e, "A chave não foi encontrada no banco");
 		} catch (ClassCastException e) {
-			throw new BancoException(e, "O valor armazenado na chave '"+chave+"' n�o � uma String v�lida");
+			throw new BancoException(e, "O valor armazenado na chave '"+chave+"' não é uma String válida");
 		}
 		
 		return valor;
@@ -136,15 +136,15 @@ public class Banco {
 	}
 	
 	/*
-	 * Esta fun��o remove entrada associada a chave passada no banco
+	 * Esta função remove entrada associada a chave passada no banco
 	 * 
-	 * Recebe como par�metro a chave (String)
+	 * Recebe como parãmetro a chave (String)
 	 * 
 	 * Complexidade O(1)
 	 */
 	public void remove(String chave) throws BancoException {
 		if(chave == null) // N�o faz sentido a chave ser nula
-			throw new BancoException("A chave n�o pode ser nula");
+			throw new BancoException("A chave não pode ser nula");
 
 		this.dados.remove(chave); // Removendo do banco
 		try {
