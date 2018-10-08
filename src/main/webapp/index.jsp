@@ -21,7 +21,7 @@
 
 
 <nav class="navbar navbar-expand-sm navbar-toggleable-md bg-dark navbar-dark">
-	<a href="#"><h4 style="color: white;">Encurtador <small class="text-muted" style="font-size: 7pt;">1.0</small></h4></a>
+	<h4 style="color: white;"><a href="http://encurtador.matheusalves.com.br" style="color: white;">Encurtador </a><small class="text-muted" style="font-size: 7pt;">1.0</small></h4>
 
 	<ul class="navbar-nav ml-auto">
         <li class="nav-item">
@@ -37,7 +37,7 @@
 
 		<div class="col-5">
 	      <img src="https://images-americanas.b2w.io/produtos/01/00/sku/30478/0/30478054_1GG.jpg" class="img-fluid">
-	      <div class="row" ">
+	      <div class="row">
 	      	<div class="col-6">
 	      		<img src="https://images-americanas.b2w.io/produtos/01/00/sku/30478/0/30478054_2GG.jpg" class="img-thumbnail float-left">
 	      	</div>
@@ -51,8 +51,8 @@
 	      <hr>
 			<div class="card" style="width: 50vw;">
 			  <div class="card-body">
-			    <h4 class="card-title">Por R$ 2.548.564,99</h5>
-			    <h5 class="card-subtitle mb-2 text-muted" style="text-decoration: line-through">de R$ 4.867.674,99</h6>
+			    <h4 class="card-title">Por R$ 2.548.564,99</h4>
+			    <h5 class="card-subtitle mb-2 text-muted" style="text-decoration: line-through">de R$ 4.867.674,99</h5>
 			    <p class="card-text">É possível sincronizar até oito consoles o Nintendo Switch e participar em títulos com opções multijogadores em cooperação ou competição. Se subscreveres o serviço online da Nintendo Switch poderá jogar com amigos ou jogadores de qualquer parte do mundo.</p>
 			    <a href="#" class="card-link"><button type="button" class="btn btn-danger">Comprar</button></a>
 			    <a href="#" class="card-link"><button type="button" class="btn btn-outline-info">Lista de Desejos</button></a>
@@ -71,14 +71,14 @@
 	      	<form id="formulario" action="#">
 				<div class="form-group">
 					<input type="text" id="url" class="form-control" aria-describedby="ajuda" placeholder="URL a ser encurtada">
-					<div id="msgERRO" class="invalid-feedback">Erro na requsição</div>
+					<div id="msgERRO" class="invalid-feedback">Falha na conexão com o servidor</div>
 					<small id="ajuda" class="form-text text-muted">
 				 		Insira aqui a URL que você deseja encurtar e então precione <b>ENTER</b>
 					</small>
 				</div>
 			</form>
 			<div id="painelURLCurta" style="border: 1px dashed #AED6F1; display: none;">
-				<b>Sua URL encurtada é: </b><i id="urlCurta"></i>
+				<b>Sua URL encurtada é: </b><i id="urlCurta" style="font-size: 15pt; text-decoration: underline;"></i>
 			</div>
 	    </div>
 	</div>
@@ -105,6 +105,7 @@
 		       $("#painelURLCurta").css("display", "block")
 		       $("#urlCurta").html(result.curta);
 		       $("#url").val("");
+		       $("#url").last().removeClass("is-invalid");
 		   },
 		    error: function(result) {
 		    	$("#url").last().addClass("is-invalid");
